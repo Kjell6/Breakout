@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static java.awt.Color.*;
 
@@ -9,7 +10,7 @@ public class GameLogic {
     private Paddle paddle;
     private Ball ball;
     private List<Brick> bricks;
-    private GameState state;
+    private GameState gameState;
 
     public GameLogic(GameState gs) {
         ballCount = Configuration.BALL_COUNT_INITIAL;
@@ -19,7 +20,7 @@ public class GameLogic {
         ball = new Ball(this, Configuration.FIELD_X_SIZE, Configuration.PADDLE_Y_POSITION - 20,
                 Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, WHITE);
         bricks = new LinkedList<>();
-        state = gs;
+        gameState = gs;
     }
 
 }

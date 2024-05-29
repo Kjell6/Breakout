@@ -6,6 +6,8 @@ public class Ball extends GameObject{
 
     public Ball(GameLogic gl, int xp, int yp, int xs, int ys, Color c) {
         super(gl, xp, yp, xs, ys, c);
+        xVelocity = 0;
+        yVelocity = 0;
     }
 
     public void setVelocity(int x, int y) {

@@ -5,6 +5,7 @@ public class Paddle extends GameObject{
 
     public Paddle(GameLogic gl, int xp, int yp, int xs, int ys, Color c) {
         super(gl, xp, yp, xs, ys, c);
+        xVelocity = 0;
     }
 
     public void setVelocity(int xv) {

@@ -5,6 +5,7 @@ public class Brick extends GameObject{
 
     public Brick(GameLogic gl, int xp, int yp, int xs, int ys, Color c) {
         super(gl, xp, yp, xs, ys, c);
+        destroyed = false;
     }
 
     public boolean isDestroyed() {

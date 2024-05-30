@@ -6,7 +6,7 @@ import java.awt.*;
  * @author Kjell Behrends
  * @author Julian Latendorf
  */
-public class Brick extends GameObject{
+public class Brick extends GameObject {
     private boolean destroyed;
 
     /**

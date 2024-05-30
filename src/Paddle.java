@@ -6,7 +6,7 @@ import java.awt.*;
  * @author Kjell Behrends
  * @author Julian Latendorf
  */
-public class Paddle extends GameObject{
+public class Paddle extends GameObject {
     private int xVelocity;
 
     /**

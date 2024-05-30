@@ -6,12 +6,13 @@ import java.awt.*;
  * @author Kjell Behrends
  * @author Julian Latendorf
  */
-public class Ball extends GameObject{
+public class Ball extends GameObject {
     private int xVelocity;
     private int yVelocity;
 
     /**
-     * Konstruktor. Initialisiert den Ball mit Position, Größe, Farbe, GameLogic und Geschwindigkeit.
+     * Konstruktor. Initialisiert den Ball mit Position, Größe, Farbe,
+     * GameLogic und Geschwindigkeit.
      *
      * @param gl die Spiellogik
      * @param xp x-Position

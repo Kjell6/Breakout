@@ -1,3 +1,10 @@
+/**
+ * Konfigurationsklasse für das Spiel.
+ * Enthält Konstanten für verschiedene Einstellungen im Spiel.
+ *
+ * @author Kjell Behrends
+ * @author Julian Latendorf
+ */
 public class Configuration {
     public static int BALL_COUNT_INITIAL = 3;
     public static final int LOOP_PERIOD = 10;

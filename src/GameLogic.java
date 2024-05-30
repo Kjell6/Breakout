@@ -3,6 +3,12 @@ import java.util.LinkedList;
 import java.util.List;
 import static java.awt.Color.*;
 
+/**
+ * Klasse für die Logik des Spiels.
+ *
+ * @author Kjell Behrends
+ * @author Julian Latendorf
+ */
 public class GameLogic {
     private int ballCount;
     private int score;
@@ -11,6 +17,12 @@ public class GameLogic {
     private List<Brick> bricks;
     private GameState gameState;
 
+    /**
+     * Konstruktor. Initialisiert GameState, Paddle, Ball und Bricks.
+     * Setzt den Score auf 0 und legt den ballCount fest.
+     *
+     * @param gs der Spielzustand
+     */
     public GameLogic(GameState gs) {
         ballCount = Configuration.BALL_COUNT_INITIAL;
         score = 0;

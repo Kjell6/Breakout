@@ -1,3 +1,9 @@
+/**
+ * Enum für den Zustand des Spiels.
+ *
+ * @author Kjell Behrends
+ * @author Julian Latendorf
+ */
 enum GameState {
     SETUP,
     RUNNING,

@@ -8,7 +8,7 @@ import java.awt.*;
  */
 
 public class GameObject {
-    private java.awt.Color color;
+    protected java.awt.Color color;
     protected int xPosition;
     protected int yPosition;
     protected int xSize;

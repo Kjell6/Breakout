@@ -20,4 +20,6 @@ public class Configuration {
     public static final int BRICK_X_SIZE = 59;
     public static final int BRICK_Y_SIZE = 25;
     public static final int BRICK_SCORE = 100;
+    public static final int BRICK_ROWS = 3;
+    public static final int BRICK_PER_ROW = 4;
 }

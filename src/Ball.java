@@ -23,9 +23,30 @@ public class Ball extends GameObject {
      */
     public Ball(GameLogic gl, int xp, int yp, int xs, int ys, Color c) {
         super(gl, xp, yp, xs, ys, c);
-        xVelocity = 0;
-        yVelocity = 0;
+        xVelocity = Configuration.BALL_VELOCITY_MAX;
+        yVelocity = Configuration.BALL_VELOCITY_MAX;
     }
+
+    public void render(Graphics graphics) {
+        graphics.setColor(color);
+        graphics.fillRect(xPosition - xSize / 2, yPosition - ySize / 2, xSize, ySize);
+    }
+
+    public void move() {
+        xPosition += xVelocity;
+        if (xPosition < 0) {
+            xVelocity = -xVelocity;
+        } else if (xPosition >= gameLog.getWidth()) {
+            xVelocity = -xVelocity;
+        }
+        yPosition += yVelocity;
+        if (yPosition < 0) {
+            yVelocity = -yVelocity;
+        } else if (yPosition >= gameLog.getHeight()) {
+            yVelocity = -yVelocity;
+        }
+    }
+
 
     /**
      * Setzt die Geschwindigkeit des Balls.

@@ -25,6 +25,23 @@ public class Paddle extends GameObject {
         xVelocity = 0;
     }
 
+    public void move() {
+        xPosition += xVelocity;
+        int xHalf = xSize / 2;
+        if (xPosition < xHalf) {
+            xPosition = xHalf;
+        } else if (xPosition >= gameLog.getWidth() - xHalf) {
+            xPosition = gameLog.getWidth() - xHalf;
+        }
+    }
+
+
+    public void render(Graphics graphics) {
+        graphics.setColor(color);
+        graphics.fillRect(xPosition - xSize / 2, yPosition - ySize / 2, xSize, ySize);
+    }
+
+
     /**
      * Setzt die x-Geschwindigkeit des Paddles.
      *

@@ -25,6 +25,12 @@ public class Brick extends GameObject {
         destroyed = false;
     }
 
+    public void render(Graphics graphics) {
+        graphics.setColor(color);
+        graphics.fillRect(xPosition - xSize / 2, yPosition - ySize / 2, xSize, ySize);
+    }
+
+
     /**
      * Überprüft, ob der Brick zerstört ist.
      *

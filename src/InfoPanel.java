@@ -11,15 +11,11 @@ public class InfoPanel extends JPanel {
     private GameLogic logic;
     private Timer timer;
 
-    public InfoPanel() {
+    public InfoPanel(GameLogic gl) {
+        this.logic = gl;
         this.timeDisplay = new TimeDisplay(logic);
-
         setLayout(new FlowLayout());
         setPreferredSize(new Dimension(Configuration.FIELD_X_SIZE, Configuration.INFO_Y_SIZE));
-    }
-
-    public void updateInfo() {
-        timeDisplay.elapsingTime();
     }
 
     public void start() {
@@ -29,14 +25,20 @@ public class InfoPanel extends JPanel {
 
 
     private void onTick() {
-        updateInfo();
+        timeDisplay.elapsingTime();
         repaint();
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        timeDisplay.render(g);
+    protected void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
+        timeDisplay.render(graphics);
+        graphics.setColor(BLACK);
+
+        int dispBallX = ((Configuration.FIELD_X_SIZE / 4) * 3) - (Configuration.BALL_X_SIZE * 3 + 2 * 10);
+        for (int i = 0, j = 0; i < logic.getBallCount(); i++, j += 10) {
+            graphics.fillRect(dispBallX + j, Configuration.INFO_Y_SIZE / 2, Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE);
+        }
     }
 
     private class GameLoop implements ActionListener {

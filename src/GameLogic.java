@@ -18,7 +18,7 @@ public class GameLogic extends JPanel {
     private Ball ball;
     private List<Brick> bricks;
     private GameState gameState;
-    private static final Color[] COLORS = {new Color(209, 34, 38), new Color(240, 235, 97),
+    private static final Color[] COLORS = {new Color(209, 34, 38),
             new Color(30, 93, 25), new Color(52, 79, 206)};
     private Timer timer;
     private long startTime;
@@ -50,7 +50,7 @@ public class GameLogic extends JPanel {
 
         for (int i = 0; i < Configuration.BRICK_ROWS; i++) {
             int yPosition = 20 + i * height;
-            if (color > 3) color = 0;
+            if (color > 2) color = 0;
 
             for (int j = 0; j < Configuration.BRICK_PER_ROW; j++) {
                 int xP = startX + j * (Configuration.BRICK_X_SIZE + 5);
@@ -130,7 +130,7 @@ public class GameLogic extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         graphics.setColor(BLACK);
-        graphics.fillRect(0,0, Configuration.FIELD_X_SIZE, Configuration.FIELD_Y_SIZE);
+        graphics.fillRoundRect(0, 0, Configuration.FIELD_X_SIZE, Configuration.FIELD_Y_SIZE, 15, 15);
         // render bricks, paddle, and ball
         for (Brick brick : bricks) {
             brick.render(graphics);
@@ -138,6 +138,10 @@ public class GameLogic extends JPanel {
         paddle.render(graphics);
         ball.render(graphics);
         // synchronize graphics state
+    }
+
+    public int getBallCount() {
+        return ballCount;
     }
 
 }

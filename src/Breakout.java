@@ -25,7 +25,7 @@ public class Breakout {
         JPanel gamePanel = new JPanel();
         gamePanel.add(gameLogic);
 
-        InfoPanel infoPanel = new InfoPanel();
+        InfoPanel infoPanel = new InfoPanel(gameLogic);
 
         // add panel to window
         gbc.gridy = 1;

@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -15,19 +16,28 @@ public class Breakout {
         frame.setResizable(false);
         // arrange components
         frame.pack();
-
+        frame.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
         GameState state = GameState.SETUP;
         // create game logic object
         GameLogic gameLogic = new GameLogic(state);
+        JPanel gamePanel = new JPanel();
+        gamePanel.add(gameLogic);
+
+        InfoPanel infoPanel = new InfoPanel();
+
         // add panel to window
-        frame.add(gameLogic);
+        gbc.gridy = 1;
+        frame.add(gamePanel, gbc);
+        gbc.gridy = 0;
+        frame.add(infoPanel, gbc);
         frame.pack();
         frame.setVisible(true);
         gameLogic.start();
+        infoPanel.start();
         // show window
         frame.setVisible(true);
-
     }
 }
 

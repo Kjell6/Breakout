@@ -18,8 +18,10 @@ public class GameLogic extends JPanel {
     private Ball ball;
     private List<Brick> bricks;
     private GameState gameState;
-    private static final Color[] COLORS = {RED, YELLOW, GREEN, BLUE};
+    private static final Color[] COLORS = {new Color(209, 34, 38), new Color(240, 235, 97),
+            new Color(30, 93, 25), new Color(52, 79, 206)};
     private Timer timer;
+    private long startTime;
 
 
     /**
@@ -33,30 +35,30 @@ public class GameLogic extends JPanel {
         ballCount = Configuration.BALL_COUNT_INITIAL;
         score = 0;
         paddle = new Paddle(this, Configuration.FIELD_X_SIZE / 2, Configuration.PADDLE_Y_POSITION,
-                Configuration.PADDLE_X_SIZE, Configuration.PADDLE_Y_SIZE, MAGENTA);
+                Configuration.PADDLE_X_SIZE, Configuration.PADDLE_Y_SIZE, new Color(144, 72, 176));
         ball = new Ball(this, Configuration.FIELD_X_SIZE / 2, Configuration.PADDLE_Y_POSITION - 20,
-                Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, WHITE);
+                Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, new Color(220, 232, 252));
         gameState = gs;
 
-        bricks = new LinkedList<>();
 
+        bricks = new LinkedList<>();
         int brickCount = 0;
         int height = Configuration.BRICK_Y_SIZE + 5;
         int width = Configuration.BRICK_X_SIZE * Configuration.BRICK_PER_ROW + (Configuration.BRICK_PER_ROW - 1) * 5;
         int startX = (Configuration.FIELD_X_SIZE - width) / 2 + (Configuration.BRICK_X_SIZE / 2);
+        int color = 0;
 
         for (int i = 0; i < Configuration.BRICK_ROWS; i++) {
             int yPosition = 20 + i * height;
-            int color = 0;
+            if (color > 3) color = 0;
 
             for (int j = 0; j < Configuration.BRICK_PER_ROW; j++) {
                 int xP = startX + j * (Configuration.BRICK_X_SIZE + 5);
-                if (color > 3) color = 0;
                 Brick brick = new Brick(this, xP, yPosition, Configuration.BRICK_X_SIZE, Configuration.BRICK_Y_SIZE, COLORS[color]);
                 brickCount++;
-                color++;
                 bricks.add(brick);
             }
+            color++;
         }
 
         // set panel size
@@ -72,13 +74,13 @@ public class GameLogic extends JPanel {
         timer.start();
     }
 
+
     private void onTick() {
         ball.move();
         paddle.move();
         //System.out.println("onTick");
         repaint();
     }
-
 
     private class GameLoop implements ActionListener {
         @Override

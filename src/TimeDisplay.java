@@ -29,4 +29,8 @@ public class TimeDisplay {
         millis = elapsedMillis % 1000;
     }
 
+    public String toString() {
+        return String.format("%02d:%02d:%03d", minutes, seconds, millis);
+    }
+
 }

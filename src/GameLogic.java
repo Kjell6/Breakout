@@ -22,6 +22,7 @@ public class GameLogic extends JPanel {
             new Color(30, 93, 25), new Color(52, 79, 206)};
     private Timer timer;
     private long startTime;
+    InfoPanel infoP;
 
 
     /**
@@ -31,12 +32,11 @@ public class GameLogic extends JPanel {
      * @param gs der Spielzustand
      */
     public GameLogic(GameState gs) {
-
         ballCount = Configuration.BALL_COUNT_INITIAL;
         score = 0;
         paddle = new Paddle(this, Configuration.FIELD_X_SIZE / 2, Configuration.PADDLE_Y_POSITION,
                 Configuration.PADDLE_X_SIZE, Configuration.PADDLE_Y_SIZE, new Color(144, 72, 176));
-        ball = new Ball(this, Configuration.FIELD_X_SIZE / 2, Configuration.PADDLE_Y_POSITION - 20,
+        ball = new Ball(this, Configuration.FIELD_X_SIZE / 2, Configuration.PADDLE_Y_POSITION - 100,
                 Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, new Color(220, 232, 252));
         gameState = gs;
 
@@ -74,10 +74,44 @@ public class GameLogic extends JPanel {
         timer.start();
     }
 
+    public void restartWithNewBall() {
+        paddle.setVelocity(0);
+        ball = new Ball(this, paddle.getX(), Configuration.PADDLE_Y_POSITION - 20,
+                Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, new Color(220, 232, 252));
+
+    }
+
 
     private void onTick() {
         ball.move();
         paddle.move();
+        // check physics and rules
+        if (ball.getHitBox().intersects(paddle.getHitBox())) { // ball hits paddle
+            ball.setVelocity(ball.getXVelocity(), -ball.getYVelocity());
+        } else if (ball.getY() > (Configuration.PADDLE_Y_POSITION + (Configuration.PADDLE_Y_SIZE / 2))) { // ball is lost
+            // reduce number of balls
+            --ballCount;
+            if (ballCount <= 0) { // no balls left
+                gameState = GameState.GAME_OVER;
+                infoP.stop();
+                String message = String.format(
+                        "<html><body style='text-align: center;'>"
+                                + "<h2 style='color: red;'>Game Over</h2>"
+                                + "<p>You lost.</p>"
+                                + "<p><b>Score:</b> %d</p>"
+                                + "<p><b>Time:</b> %s</p>"
+                                + "</body></html>", score, infoP.getTime());
+
+                JLabel label = new JLabel(message);
+                JOptionPane.showMessageDialog(this, message,"Game Over",
+                        JOptionPane.PLAIN_MESSAGE);
+
+                System.exit(-1);
+            } else { // at least one ball left, continue level
+                restartWithNewBall();
+            }
+        }
+
         //System.out.println("onTick");
         repaint();
     }
@@ -142,6 +176,10 @@ public class GameLogic extends JPanel {
 
     public int getBallCount() {
         return ballCount;
+    }
+
+    public void setInfoP(InfoPanel ip) {
+        this.infoP = ip;
     }
 
 }

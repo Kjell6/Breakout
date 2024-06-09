@@ -29,7 +29,7 @@ public class Ball extends GameObject {
 
     public void render(Graphics graphics) {
         graphics.setColor(color);
-        graphics.fillRect(xPosition - xSize / 2, yPosition - ySize / 2, xSize, ySize);
+        graphics.fillRoundRect(xPosition - xSize / 2, yPosition - ySize / 2, xSize, ySize, 20, 20);
     }
 
     public void move() {

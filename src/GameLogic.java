@@ -43,8 +43,9 @@ public class GameLogic extends JPanel {
 
         bricks = new LinkedList<>();
         int brickCount = 0;
-        int height = Configuration.BRICK_Y_SIZE + 5;
-        int width = Configuration.BRICK_X_SIZE * Configuration.BRICK_PER_ROW + (Configuration.BRICK_PER_ROW - 1) * 5;
+        int brickSpace = 5;
+        int height = Configuration.BRICK_Y_SIZE + brickSpace;
+        int width = Configuration.BRICK_X_SIZE * Configuration.BRICK_PER_ROW + ((Configuration.BRICK_PER_ROW - 1) * brickSpace);
         int startX = (Configuration.FIELD_X_SIZE - width) / 2 + (Configuration.BRICK_X_SIZE / 2);
         int color = 0;
 
@@ -53,7 +54,7 @@ public class GameLogic extends JPanel {
             if (color > 2) color = 0;
 
             for (int j = 0; j < Configuration.BRICK_PER_ROW; j++) {
-                int xP = startX + j * (Configuration.BRICK_X_SIZE + 5);
+                int xP = startX + j * (Configuration.BRICK_X_SIZE + brickSpace);
                 Brick brick = new Brick(this, xP, yPosition, Configuration.BRICK_X_SIZE, Configuration.BRICK_Y_SIZE, COLORS[color]);
                 brickCount++;
                 bricks.add(brick);
@@ -180,6 +181,10 @@ public class GameLogic extends JPanel {
 
     public void setInfoP(InfoPanel ip) {
         this.infoP = ip;
+    }
+
+    public int getScore() {
+        return this.score;
     }
 
 }

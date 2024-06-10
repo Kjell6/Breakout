@@ -21,7 +21,6 @@ public class GameLogic extends JPanel {
     private static final Color[] COLORS = {new Color(209, 34, 38),
             new Color(30, 93, 25), new Color(52, 79, 206)};
     private Timer timer;
-    private long startTime;
     InfoPanel infoP;
 
 
@@ -43,18 +42,19 @@ public class GameLogic extends JPanel {
 
         bricks = new LinkedList<>();
         int brickCount = 0;
-        int brickSpace = 5;
-        int height = Configuration.BRICK_Y_SIZE + brickSpace;
-        int width = Configuration.BRICK_X_SIZE * Configuration.BRICK_PER_ROW + ((Configuration.BRICK_PER_ROW - 1) * brickSpace);
+        int brickXSpace = 5;
+        int brickYSpace = 20; //20 oder 10
+        int height = Configuration.BRICK_Y_SIZE + brickXSpace;
+        int width = Configuration.BRICK_X_SIZE * Configuration.BRICK_PER_ROW + ((Configuration.BRICK_PER_ROW - 1) * brickXSpace);
         int startX = (Configuration.FIELD_X_SIZE - width) / 2 + (Configuration.BRICK_X_SIZE / 2);
         int color = 0;
 
         for (int i = 0; i < Configuration.BRICK_ROWS; i++) {
-            int yPosition = 20 + i * height;
+            int yPosition = brickYSpace + i * height;
             if (color > 2) color = 0;
 
             for (int j = 0; j < Configuration.BRICK_PER_ROW; j++) {
-                int xP = startX + j * (Configuration.BRICK_X_SIZE + brickSpace);
+                int xP = startX + j * (Configuration.BRICK_X_SIZE + brickXSpace);
                 Brick brick = new Brick(this, xP, yPosition, Configuration.BRICK_X_SIZE, Configuration.BRICK_Y_SIZE, COLORS[color]);
                 brickCount++;
                 bricks.add(brick);
@@ -98,7 +98,6 @@ public class GameLogic extends JPanel {
                 String message = String.format(
                         "<html><body style='text-align: center;'>"
                                 + "<h2 style='color: red;'>Game Over</h2>"
-                                + "<p>You lost.</p>"
                                 + "<p><b>Score:</b> %d</p>"
                                 + "<p><b>Time:</b> %s</p>"
                                 + "</body></html>", score, infoP.getTime());

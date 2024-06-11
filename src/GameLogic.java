@@ -42,7 +42,7 @@ public class GameLogic extends JPanel {
 
         bricks = new LinkedList<>();
         int brickCount = 0;
-        int brickXSpace = 5;
+        int brickXSpace = Configuration.BRICK_SPACE;
         int brickYSpace = 20; //20 oder 10
         int height = Configuration.BRICK_Y_SIZE + brickXSpace;
         int width = Configuration.BRICK_X_SIZE * Configuration.BRICK_PER_ROW + ((Configuration.BRICK_PER_ROW - 1) * brickXSpace);
@@ -103,8 +103,9 @@ public class GameLogic extends JPanel {
                                 + "</body></html>", score, infoP.getTime());
 
                 JLabel label = new JLabel(message);
+                Icon icon = new ImageIcon("losing.png");
                 JOptionPane.showMessageDialog(this, message,"Game Over",
-                        JOptionPane.PLAIN_MESSAGE);
+                        JOptionPane.PLAIN_MESSAGE, icon);
 
                 System.exit(-1);
             } else { // at least one ball left, continue level
@@ -154,8 +155,9 @@ public class GameLogic extends JPanel {
                             + "</body></html>", score, infoP.getTime());
 
             JLabel label = new JLabel(message);
+            Icon icon = new ImageIcon("winning.png");
             JOptionPane.showMessageDialog(this, message,"Game Won",
-                    JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.PLAIN_MESSAGE, icon);
 
             System.exit(-1);
         }
@@ -208,6 +210,10 @@ public class GameLogic extends JPanel {
         Graphics2D g2d = (Graphics2D) graphics;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        /*
+        Image image = new ImageIcon("/Users/kjell/Downloads/Pinterest Image.jpg").getImage();
+        graphics.drawImage(image, 0, 0, this);
+         */
         graphics.setColor(BLACK);
         graphics.fillRoundRect(0, 0, Configuration.FIELD_X_SIZE, Configuration.FIELD_Y_SIZE, 15, 15);
         // render bricks, paddle, and ball

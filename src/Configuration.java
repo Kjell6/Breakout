@@ -17,10 +17,11 @@ public class Configuration {
     public static final int BALL_X_SIZE = 5;
     public static final int BALL_Y_SIZE = 5;
     public static final int BALL_VELOCITY_MAX = 1;
-    public static final int BRICK_X_SIZE = 59; //59 oder 25
-    public static final int BRICK_Y_SIZE = 25; //25 oder 10
+    public static final int BRICK_ROWS = 6; //3
+    public static final int BRICK_PER_ROW = 20; //4 oder 10
+    public static final int BRICK_SPACE = 5;
+    public static final int BRICK_X_SIZE = (FIELD_X_SIZE - 50 - (BRICK_PER_ROW * BRICK_SPACE)) / BRICK_PER_ROW; //59 oder 25
+    public static final int BRICK_Y_SIZE = 100 / BRICK_PER_ROW; //25 oder 10
     public static final int BRICK_SCORE = 10;
-    public static final int BRICK_ROWS = 3;
-    public static final int BRICK_PER_ROW = 4; //4 oder 10
     public static final int INFO_Y_SIZE = 20;
 }

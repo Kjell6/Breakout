@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
 import java.util.List;
-import static java.awt.Color.*;
 
 /**
  * Klasse für die Logik des Spiels.
@@ -31,31 +30,31 @@ public class GameLogic extends JPanel {
      * @param gs der Spielzustand
      */
     public GameLogic(GameState gs) {
-        ballCount = Configuration.BALL_COUNT_INITIAL;
+        ballCount = Config.BALL_COUNT_INITIAL;
         score = 0;
-        paddle = new Paddle(this, Configuration.FIELD_X_SIZE / 2, Configuration.PADDLE_Y_POSITION,
-                Configuration.PADDLE_X_SIZE, Configuration.PADDLE_Y_SIZE, new Color(144, 72, 176));
-        ball = new Ball(this, Configuration.FIELD_X_SIZE / 2, Configuration.PADDLE_Y_POSITION - 100,
-                Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, new Color(220, 232, 252));
+        paddle = new Paddle(this, Config.FIELD_X_SIZE / 2, Config.PADDLE_Y_POSITION,
+                Config.PADDLE_X_SIZE, Config.PADDLE_Y_SIZE, new Color(144, 72, 176));
+        ball = new Ball(this, Config.FIELD_X_SIZE / 2, Config.PADDLE_Y_POSITION - 100,
+                Config.BALL_X_SIZE, Config.BALL_Y_SIZE, new Color(220, 232, 252));
         gameState = gs;
 
 
         bricks = new LinkedList<>();
         int brickCount = 0;
-        int brickXSpace = Configuration.BRICK_SPACE;
+        int brickXSpace = Config.BRICK_SPACE;
         int brickYSpace = 20; //20 oder 10
-        int height = Configuration.BRICK_Y_SIZE + brickXSpace;
-        int width = Configuration.BRICK_X_SIZE * Configuration.BRICK_PER_ROW + ((Configuration.BRICK_PER_ROW - 1) * brickXSpace);
-        int startX = (Configuration.FIELD_X_SIZE - width) / 2 + (Configuration.BRICK_X_SIZE / 2);
+        int height = Config.BRICK_Y_SIZE + brickXSpace;
+        int width = Config.BRICK_X_SIZE * Config.BRICK_PER_ROW + ((Config.BRICK_PER_ROW - 1) * brickXSpace);
+        int startX = (Config.FIELD_X_SIZE - width) / 2 + (Config.BRICK_X_SIZE / 2);
         int color = 0;
 
-        for (int i = 0; i < Configuration.BRICK_ROWS; i++) {
+        for (int i = 0; i < Config.BRICK_ROWS; i++) {
             int yPosition = brickYSpace + i * height;
             if (color > 2) color = 0;
 
-            for (int j = 0; j < Configuration.BRICK_PER_ROW; j++) {
-                int xP = startX + j * (Configuration.BRICK_X_SIZE + brickXSpace);
-                Brick brick = new Brick(this, xP, yPosition, Configuration.BRICK_X_SIZE, Configuration.BRICK_Y_SIZE, COLORS[color]);
+            for (int j = 0; j < Config.BRICK_PER_ROW; j++) {
+                int xP = startX + j * (Config.BRICK_X_SIZE + brickXSpace);
+                Brick brick = new Brick(this, xP, yPosition, Config.BRICK_X_SIZE, Config.BRICK_Y_SIZE, COLORS[color]);
                 brickCount++;
                 bricks.add(brick);
             }
@@ -63,7 +62,7 @@ public class GameLogic extends JPanel {
         }
 
         // set panel size
-        setPreferredSize(new Dimension(Configuration.FIELD_X_SIZE, Configuration.FIELD_Y_SIZE));
+        setPreferredSize(new Dimension(Config.FIELD_X_SIZE, Config.FIELD_Y_SIZE));
         //Key Listener
         setFocusable(true);
         this.addKeyListener(new BreakoutKeyAdapter());
@@ -71,14 +70,14 @@ public class GameLogic extends JPanel {
 
     public void start() {
         gameState = GameState.RUNNING;
-        timer = new Timer(Configuration.LOOP_PERIOD, new GameLoop());
+        timer = new Timer(Config.LOOP_PERIOD, new GameLoop());
         timer.start();
     }
 
     public void restartWithNewBall() {
         paddle.setVelocity(0);
-        ball = new Ball(this, paddle.getX(), Configuration.PADDLE_Y_POSITION - 20,
-                Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, new Color(220, 232, 252));
+        ball = new Ball(this, paddle.getX(), Config.PADDLE_Y_POSITION - 20,
+                Config.BALL_X_SIZE, Config.BALL_Y_SIZE, new Color(220, 232, 252));
 
     }
 
@@ -89,7 +88,7 @@ public class GameLogic extends JPanel {
         // check physics and rules
         if (ball.getHitBox().intersects(paddle.getHitBox())) { // ball hits paddle
             ball.setVelocity(ball.getXVelocity(), -ball.getYVelocity());
-        } else if (ball.getY() > (Configuration.PADDLE_Y_POSITION + (Configuration.PADDLE_Y_SIZE / 2))) { // ball is lost
+        } else if (ball.getY() > (Config.PADDLE_Y_POSITION + (Config.PADDLE_Y_SIZE / 2))) { // ball is lost
             // reduce number of balls
             --ballCount;
             if (ballCount <= 0) { // no balls left
@@ -138,13 +137,13 @@ public class GameLogic extends JPanel {
 
         if (hitBrick != null) { // if hit brick then remove it and score
             bricks.remove(hitBrick);
-            score += Configuration.BRICK_SCORE;
+            score += Config.BRICK_SCORE;
         }
 
         //System.out.println("onTick");
         repaint();
 
-        if (((Configuration.BRICK_ROWS * Configuration.BRICK_PER_ROW) * Configuration.BRICK_SCORE) == score) {
+        if (((Config.BRICK_ROWS * Config.BRICK_PER_ROW) * Config.BRICK_SCORE) == score) {
             gameState = GameState.GAME_OVER;
             infoP.stop();
             String message = String.format(
@@ -187,10 +186,10 @@ public class GameLogic extends JPanel {
     void onKeyPressed(KeyEvent event) {
         int key = event.getKeyCode();
         if (key == KeyEvent.VK_LEFT) {
-            paddle.setVelocity(-Configuration.PADDLE_VELOCITY);
+            paddle.setVelocity(-Config.PADDLE_VELOCITY);
         }
         if (key == KeyEvent.VK_RIGHT) {
-            paddle.setVelocity(Configuration.PADDLE_VELOCITY);
+            paddle.setVelocity(Config.PADDLE_VELOCITY);
         }
     }
 
@@ -215,7 +214,7 @@ public class GameLogic extends JPanel {
         graphics.drawImage(image, 0, 0, this);
          */
         graphics.setColor(new Color(0, 0, 0, 255));
-        graphics.fillRoundRect(0, 0, Configuration.FIELD_X_SIZE, Configuration.FIELD_Y_SIZE, 15, 15);
+        graphics.fillRoundRect(0, 0, Config.FIELD_X_SIZE, Config.FIELD_Y_SIZE, 15, 15);
         // render bricks, paddle, and ball
         for (Brick brick : bricks) {
             brick.render(graphics);

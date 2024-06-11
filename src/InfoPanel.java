@@ -25,11 +25,11 @@ public class InfoPanel extends JPanel {
         this.gameState = gs;
         this.gameOver = false;
         setLayout(new FlowLayout());
-        setPreferredSize(new Dimension(Configuration.FIELD_X_SIZE, Configuration.INFO_Y_SIZE));
+        setPreferredSize(new Dimension(Config.FIELD_X_SIZE, Config.INFO_Y_SIZE));
     }
 
     public void start() {
-        timer = new Timer(Configuration.LOOP_PERIOD, new GameLoop());
+        timer = new Timer(Config.LOOP_PERIOD, new GameLoop());
         timer.start();
     }
 
@@ -56,28 +56,28 @@ public class InfoPanel extends JPanel {
         //Zeit
         graphics.setColor(Color.BLACK);
         String timeString = String.format("%02d:%02d:%03d", minutes, seconds, millis);
-        graphics.drawString(timeString, (Configuration.FIELD_X_SIZE - graphics.getFontMetrics(graphics.getFont()).stringWidth(timeString)) / 6,
-                Configuration.INFO_Y_SIZE);
+        graphics.drawString(timeString, (Config.FIELD_X_SIZE - graphics.getFontMetrics(graphics.getFont()).stringWidth(timeString)) / 6,
+                Config.INFO_Y_SIZE);
 
         //Bälle übrig
         graphics.setColor(BLACK);
         int ballSpace = 10;
-        int dispBallX = (Configuration.FIELD_X_SIZE / 2) - ((Configuration.BALL_X_SIZE / 2) + ballSpace);
+        int dispBallX = (Config.FIELD_X_SIZE / 2) - ((Config.BALL_X_SIZE / 2) + ballSpace);
         for (int i = 0, j = 0; i < 3; i++, j += ballSpace) {
             if (i >= logic.getBallCount()) {
                 graphics.setColor(new Color(0, 0, 0, 63));
-                graphics.fillRoundRect(dispBallX + j, Configuration.INFO_Y_SIZE / 2, Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, 20, 20);
+                graphics.fillRoundRect(dispBallX + j, Config.INFO_Y_SIZE / 2, Config.BALL_X_SIZE, Config.BALL_Y_SIZE, 20, 20);
             } else {
                 graphics.setColor(new Color(0, 0, 0));
-                graphics.fillRoundRect(dispBallX + j, Configuration.INFO_Y_SIZE / 2, Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, 20, 20);
+                graphics.fillRoundRect(dispBallX + j, Config.INFO_Y_SIZE / 2, Config.BALL_X_SIZE, Config.BALL_Y_SIZE, 20, 20);
             }
         }
 
         //Score
         graphics.setColor(Color.BLACK);
         String score = String.format("%03d", logic.getScore());
-        graphics.drawString(score, ((Configuration.FIELD_X_SIZE - graphics.getFontMetrics(graphics.getFont()).stringWidth(score)) / 6) * 5,
-                Configuration.INFO_Y_SIZE);
+        graphics.drawString(score, ((Config.FIELD_X_SIZE - graphics.getFontMetrics(graphics.getFont()).stringWidth(score)) / 6) * 5,
+                Config.INFO_Y_SIZE);
     }
 
     private class GameLoop implements ActionListener {

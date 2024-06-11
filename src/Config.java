@@ -5,7 +5,7 @@
  * @author Kjell Behrends
  * @author Julian Latendorf
  */
-public class Configuration {
+public class Config {
     public static final int BALL_COUNT_INITIAL = 3;
     public static final int LOOP_PERIOD = 10;
     public static final int FIELD_X_SIZE = 320;

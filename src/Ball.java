@@ -23,8 +23,8 @@ public class Ball extends GameObject {
      */
     public Ball(GameLogic gl, int xp, int yp, int xs, int ys, Color c) {
         super(gl, xp, yp, xs, ys, c);
-        xVelocity = Configuration.BALL_VELOCITY_MAX;
-        yVelocity = - Configuration.BALL_VELOCITY_MAX;
+        xVelocity = Config.BALL_VELOCITY_MAX;
+        yVelocity = - Config.BALL_VELOCITY_MAX;
     }
 
     public void render(Graphics graphics) {

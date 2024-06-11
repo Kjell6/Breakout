@@ -112,8 +112,53 @@ public class GameLogic extends JPanel {
             }
         }
 
+        Rectangle ballHitBox = ball.getHitBox();
+
+        Rectangle nextX = new Rectangle(ballHitBox);
+        nextX.setLocation(nextX.x + ball.getXVelocity(), nextX.y);
+
+        Rectangle nextY = new Rectangle(ballHitBox);
+        nextY.setLocation(nextY.x, nextY.y + ball.getYVelocity());
+
+        Brick hitBrick = null;
+
+        for (Brick brick : bricks) {
+            if (brick.getHitBox().intersects(nextX)) { // hit in the west or east
+                ball.setVelocity(-ball.getXVelocity(), ball.getYVelocity());
+                hitBrick = brick;
+                break;
+            }
+            if (brick.getHitBox().intersects(nextY)) { // hit in the north or south
+                ball.setVelocity(ball.getXVelocity(), -ball.getYVelocity());
+                hitBrick = brick;
+                break;
+            }
+        }
+
+        if (hitBrick != null) { // if hit brick then remove it and score
+            bricks.remove(hitBrick);
+            score += Configuration.BRICK_SCORE;
+        }
+
         //System.out.println("onTick");
         repaint();
+
+        if (((Configuration.BRICK_ROWS * Configuration.BRICK_PER_ROW) * Configuration.BRICK_SCORE) == score) {
+            gameState = GameState.GAME_OVER;
+            infoP.stop();
+            String message = String.format(
+                    "<html><body style='text-align: center;'>"
+                            + "<h2 style='color: #FFD700;'>Game Won</h2>"
+                            + "<p><b>Score:</b> %d</p>"
+                            + "<p><b>Time:</b> %s</p>"
+                            + "</body></html>", score, infoP.getTime());
+
+            JLabel label = new JLabel(message);
+            JOptionPane.showMessageDialog(this, message,"Game Won",
+                    JOptionPane.PLAIN_MESSAGE);
+
+            System.exit(-1);
+        }
     }
 
     private class GameLoop implements ActionListener {

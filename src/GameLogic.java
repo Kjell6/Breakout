@@ -214,7 +214,7 @@ public class GameLogic extends JPanel {
         Image image = new ImageIcon("/Users/kjell/Downloads/Pinterest Image.jpg").getImage();
         graphics.drawImage(image, 0, 0, this);
          */
-        graphics.setColor(BLACK);
+        graphics.setColor(new Color(0, 0, 0, 255));
         graphics.fillRoundRect(0, 0, Configuration.FIELD_X_SIZE, Configuration.FIELD_Y_SIZE, 15, 15);
         // render bricks, paddle, and ball
         for (Brick brick : bricks) {

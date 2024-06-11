@@ -66,10 +66,10 @@ public class InfoPanel extends JPanel {
         for (int i = 0, j = 0; i < 3; i++, j += ballSpace) {
             if (i >= logic.getBallCount()) {
                 graphics.setColor(new Color(0, 0, 0, 63));
-                graphics.fillRect(dispBallX + j, Configuration.INFO_Y_SIZE / 2, Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE);
+                graphics.fillRoundRect(dispBallX + j, Configuration.INFO_Y_SIZE / 2, Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, 20, 20);
             } else {
                 graphics.setColor(new Color(0, 0, 0));
-                graphics.fillRect(dispBallX + j, Configuration.INFO_Y_SIZE / 2, Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE);
+                graphics.fillRoundRect(dispBallX + j, Configuration.INFO_Y_SIZE / 2, Configuration.BALL_X_SIZE, Configuration.BALL_Y_SIZE, 20, 20);
             }
         }
 
